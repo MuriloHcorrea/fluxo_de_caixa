@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\{
 CentroCusto,
-Lancamento
+Lancamento,
+User
 };
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class CentroCustoController extends Controller
      */
     public function index()
     {
-        $centroCustos = CentroCusto::orderBy('centro_custo')->paginte(10);
+        $centroCustos = CentroCusto::orderBy('centro_custo')->paginate(10);
         return view('centro.index')->with(compact('centroCustos'));
     }
 
