@@ -12,7 +12,13 @@
                 <caption>LISTA DE</caption>
                 <tr>
                     <th class="col-2">#</th>
-                    <th>Centro de Custos</th>
+                    <th>Centro de Custos
+                        -
+                        <a class="btn btn-dark"
+                        href="{{ route('centro.create')}}">
+                        Novo centro de custo
+                        </a>
+                    </th>
                     <th>Total de Lançamentos</th>
                 </tr>
             </thead>
@@ -24,16 +30,17 @@
                     <td scope="row">
                         <div class="flex-column">
                             {{-- ver --}}
-                            <a class="btn btn-success" href="#">
+                            <a class="btn btn-success" href="{{ route('centro.show',['id'=>$centro->id_centro_custo])}}">
                                 <i class="bi bi-eye"></i>
                             </a>
                             {{-- editar --}}
-                            <a class="btn btn-dark" href="#">
+                            <a class="btn btn-dark" href="{{ route('centro.edit',
+                            ['id' =>$centro->id_centro_custo])}}">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             {{-- excluir --}}
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#modalExcluir" data-identificacao="" data-url="">
+                                data-bs-target="#modalExcluir" data-identificacao="{{ $centro->centro_custo}}" data-url="{{ route('centro.destroy', ['id'=>$centro->id_centro_custo]) }}">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
