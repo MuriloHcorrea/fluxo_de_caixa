@@ -86,8 +86,9 @@ class Lancamento extends Model
     {
         return $this->belongsTo(
             User::class,
-            'id',
-            'id_user'
+            'id_user',
+            'id'
+
         );
     }
 
