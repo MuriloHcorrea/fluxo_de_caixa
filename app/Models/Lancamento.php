@@ -20,7 +20,7 @@ class Lancamento extends Model
     protected $table = 'lancamentos';
     protected $primaryKey = 'id_lancamento';
 
-    protected $date = [
+    protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at',
@@ -37,9 +37,9 @@ class Lancamento extends Model
         'anexo'
     ];
 
-    protected $cast = [
+    protected $casts = [
         'vencimento' => 'date',
-        'valor' => 'decimal'
+        'valor' => 'decimal:2'
     ];
 
     /**
@@ -98,7 +98,15 @@ class Lancamento extends Model
      * | Mutators
      * | https://laravel.com/docs/10.x/eloquent-mutators
      * ---------------------------------------------------
+     *
      */
+
+
+
+
+
+
+
     protected function descricao(): Attribute
     {
         return Attribute::make(
@@ -107,6 +115,15 @@ class Lancamento extends Model
         );
     }
 
+
+
+    protected function valor(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) =>'R$ '. number_format($value,2,',','.'),
+
+        );
+    }
 
     /**
      * ----------------------------------------------------
