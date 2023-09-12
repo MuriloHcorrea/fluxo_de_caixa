@@ -46,8 +46,12 @@ Saldo R$
 </thead>
 <tbody class="table-group-divider">
 @foreach($centro->lancamentos()->get() as $lancamento)
-<tr>
+<tr
+ @if ($lancamento->id_tipo == 2)
+     class= "table-danger"
 
+ @endif
+ >
  <td scope="row">{{ $loop->iteration}}</td>
  <td scope="row">{{$lancamento->id_lancamento}}</td>
  <td>{{$lancamento->tipo->tipo}}</td>

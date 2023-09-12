@@ -6,20 +6,31 @@
     {{-- alerts --}}
     @include('layouts.partials.alerts')
     {{-- /alerts --}}
-
+      {{-- Paginação --}}
+               {!!$lancamentos->links() !!}
+      {{-- /Paginação --}}
     <div class="table-responsive">
+
         <table class="table table-striped  table-hover ">
             <thead>
                 <caption>LISTA DE</caption>
                 <tr>
                     <th>#</th>
-                    <th>Column 2</th>
-                    <th>Column 3</th>
+                    <th>Vencimento</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Centro de Custo</th>
+                    <th>Descrição</th>
+                    <th>Usuario</th>
+                    <th>Data de Lanca</th>
+
                 </tr>
             </thead>
             <tbody class="table-group-divider">
+                @forelse ($lancamentos as $lancamento)
+
                 <tr>
-                    <td scope="row" class="col-1">
+                    <td scope="row" class="col-2">
                         <div class="flex-column">
                             {{-- ver --}}
                             <a class="btn btn-success" href="#">
@@ -36,9 +47,28 @@
                             </button>
                         </div>
                     </td>
-                    <td>Item</td>
-                    <td>Item</td>
+                    <td>{{ $lancamento->vencimento->format('d/m/Y') }}</td>
+                    <td>{{ $lancamento->tipo->tipo}}</td>
+                    <td>{{ $lancamento->valor}}</td>
+                    <td>{{ $lancamento->centroCusto->centro_custo}} </td>
+                    <td>{{ $lancamento->descricao}}</td>
+                    <td>{{ $lancamento->usuario->name}}</td>
+                    <td>{{ $lancamento->created_at->format('d/m/Y H:i')}}h
+                         /
+                         {{ $lancamento->created_at->age}} Anos
+
+                    </td>
+
+
                 </tr>
+
+                @empty
+                 <tr>
+                    <td colspan="8">
+                        Nenhum Registro Registrado por aqui
+                    </td>
+                 </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
