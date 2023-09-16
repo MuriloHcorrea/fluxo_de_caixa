@@ -88,7 +88,6 @@ class Lancamento extends Model
             User::class,
             'id_user',
             'id'
-
         );
     }
 
@@ -98,15 +97,7 @@ class Lancamento extends Model
      * | Mutators
      * | https://laravel.com/docs/10.x/eloquent-mutators
      * ---------------------------------------------------
-     *
      */
-
-
-
-
-
-
-
     protected function descricao(): Attribute
     {
         return Attribute::make(
@@ -115,15 +106,13 @@ class Lancamento extends Model
         );
     }
 
-
-
     protected function valor(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) =>'R$ '. number_format($value,2,',','.'),
-
+            get: fn (string $value) => number_format($value,2,',','.'),
         );
     }
+
 
     /**
      * ----------------------------------------------------

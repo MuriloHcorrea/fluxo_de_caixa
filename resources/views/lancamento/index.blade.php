@@ -1,22 +1,23 @@
 @extends('layouts.base')
 @section('content')
     <h1>
-        <i class="bi bi-wallet2 "></i>
-        INDEX - LANCAMENTOS
-       <a class="btn btn-primary"
-       href="{{route ('lancamento.create')}}"></a>
-          Novo Lancamento
+        <i class="bi bi-wallet2"></i>
+        - LANCAMENTOS
+        |
+        <a class="btn btn-primary"
+           href="{{ route('lancamento.create') }}">
+            Novo Lançamento
+        </a>
     </h1>
-    <h2> {{ Auth::user()->name }}</h2>
 
     {{-- alerts --}}
     @include('layouts.partials.alerts')
     {{-- /alerts --}}
-      {{-- Paginação --}}
-               {!!$lancamentos->links() !!}
-      {{-- /Paginação --}}
-    <div class="table-responsive">
+    {{-- paginação --}}
+        {!! $lancamentos->links() !!}
+    {{-- /paginação --}}
 
+    <div class="table-responsive">
         <table class="table table-striped  table-hover ">
             <thead>
                 <caption>LISTA DE</caption>
@@ -27,20 +28,18 @@
                     <th>Valor</th>
                     <th>Centro de Custo</th>
                     <th>Descrição</th>
-                    <th>Usuario</th>
-                    <th>Data de Lanca</th>
-
+                    <th>Usuário</th>
+                    <th>Data do lançamento</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                @forelse ($lancamentos as $lancamento)
-
+                @forelse ($lancamentos as $lancamento )
                 <tr>
                     <td scope="row" class="col-2">
                         <div class="flex-column">
                             {{-- ver --}}
-                            <a class="btn btn-success" href="#">
-                                <i class="bi bi-eye"></i>
+                            <a class="btn btn-success" href="{{ url('storage/anexos/'.$lancamento->anexo)}}" target="_blank">
+                                <i class="bi bi-send-fill"></i>
                             </a>
                             {{-- editar --}}
                             <a class="btn btn-dark" href="#">
@@ -54,24 +53,19 @@
                         </div>
                     </td>
                     <td>{{ $lancamento->vencimento->format('d/m/Y') }}</td>
-                    <td>{{ $lancamento->tipo->tipo}}</td>
-                    <td>{{ $lancamento->valor}}</td>
-                    <td>{{ $lancamento->centroCusto->centro_custo}} </td>
-                    <td>{{ $lancamento->descricao}}</td>
-                    <td>{{ $lancamento->usuario->name}}</td>
-                    <td>{{ $lancamento->created_at->format('d/m/Y H:i')}}h
-                         /
-                         {{ $lancamento->created_at->age}} Anos
-
+                    <td>{{ $lancamento->tipo->tipo }}</td>
+                    <td>{{ $lancamento->valor }}</td>
+                    <td>{{ $lancamento->centroCusto->centro_custo }}</td>
+                    <td>{{ $lancamento->descricao }}</td>
+                    <td>{{ $lancamento->usuario->name }}</td>
+                    <td>
+                        {{ $lancamento->created_at->format('d/m/Y \a\s H:i') }}h
                     </td>
-
-
                 </tr>
-
                 @empty
                  <tr>
                     <td colspan="8">
-                        Nenhum Registro Registrado por aqui
+                        Nenhum registro retornado
                     </td>
                  </tr>
                 @endforelse
