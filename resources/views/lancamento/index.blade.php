@@ -14,9 +14,53 @@
     @include('layouts.partials.alerts')
     {{-- /alerts --}}
     {{-- paginação --}}
-        {!! $lancamentos->links() !!}
+        {!! $lancamentos->appends(['search' =>request()->get('search','')])->links() !!}
     {{-- /paginação --}}
 
+    {{-- pesquisa    --}}
+<div class="row">
+
+    <form  action="{{ route('lancamento.index')}}" method="get">
+    <input class="form-control col-md-4" type="search" name="search" id="search"
+    placeholder="Pesquise algo" value="{{ old('search',request()->get('search'))}}">
+
+
+    {{-- data inicio --}}
+  <div class="col-md-3">
+    <label class="form-label"for="dt_inicial">
+      Data inicial
+
+
+    </label>
+    <input class="from-control" type ="date" name="dt_inicial" id="dt_inical">
+  </div>
+
+    {{-- /data inicio --}}
+
+    {{-- ultima data --}}
+    <div class="col-md-3">
+        <label class="form-label"for="dt_fim">
+          Data Final
+
+
+        </label>
+        <input class="from-control" type ="date" name="dt_fim" id="dt_fim">
+      </div>
+    {{-- /ultima data --}}
+
+
+    <input class="btn btn-dark col-md-1"type="submit" value="Pesquisar">
+
+    @if (request()->get('search') !='')
+
+
+    <a class="btn btn-primary col-md-1"href="{{ route('lancamento.index')}}">
+        <i class="bi bi-recycle"></i>
+    </a>
+    @endif
+</form>
+
+</div>
     <div class="table-responsive">
         <table class="table table-striped  table-hover ">
             <thead>
