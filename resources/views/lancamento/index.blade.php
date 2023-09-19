@@ -17,8 +17,70 @@
         {!! $lancamentos->appends(['search' =>request()->get('search','')])->links() !!}
     {{-- /paginação --}}
 
+
+    {{-- pesquisa TIPO --}}
+
+    <div class="col-md-2">
+        <form  action="{{ route('lancamento.index')}}" method="get">
+        <label for="search_tipo" class="form-label">Pesquise um Tipo</label>
+        <select id="search_tipo" class="form-select" name="search_tipo" >
+
+            @foreach ($tipos::orderBy('tipo')->get() as $tipo )
+            <option value="{{ $tipo->id_tipo}}"
+            {{-- @selected(
+                (
+                    $lancamento &&
+                    $lancamento->id_tipo == $tipo->id_tipo
+                )
+                ||
+                old('id_tipo') == $tipo->id_tipo
+                ) --}}
+                >
+                {{ $tipo->tipo }}
+            </option>
+            @endforeach
+        </select>
+    </div>
+
+
+    {{-- /Pesquisa TIPO --}}
+
+    {{-- Pesquisa centro custo --}}
+
+    <div class="col-md-3">
+        <form  action="{{ route('lancamento.index')}}" method="get">
+        <label for="search_centroCusto" class="form-label">Pesquise um centro custo</label>
+        <select id="search_centroCusto" class="form-select" name = "search_centroCusto">
+
+                @foreach ($centrosDeCusto::orderBy('centro_custo')->get() as $centro )
+                    <option value="{{$centro->id_centro_custo}}"
+
+                        {{-- @selected(
+                            (
+                                $lancamento &&
+                                $lancamento->id_centro_custo == $centro->id_centro_custo
+                            )
+                            ||
+                            old('id_centro_custo') == $centro->id_centro_custo
+                        ) --}}
+                    >
+                        {{ $centro->centro_custo}}
+                    </option>
+                @endforeach
+        </select>
+    </div>
+    {{-- /Pesquisa centro custo --}}
+
+
+
+
+
+
+
+
+
     {{-- pesquisa    --}}
-<div class="row">
+    <div class="row">
 
     <form  action="{{ route('lancamento.index')}}" method="get">
     <input class="form-control col-md-4" type="search" name="search" id="search"
@@ -57,6 +119,7 @@
     <a class="btn btn-primary col-md-1"href="{{ route('lancamento.index')}}">
         <i class="bi bi-recycle"></i>
     </a>
+
     @endif
 </form>
 

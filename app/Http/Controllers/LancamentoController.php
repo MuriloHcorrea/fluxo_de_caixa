@@ -22,20 +22,37 @@ class LancamentoController extends Controller
      */
     public function index(Request $request )
     {
+        $search_tipo =$request->get('search_tipo')??null;;
+        $search_centroCusto =$request->get('search_centroCusto')??null;;
         $search = $request->get('search');
         $dt_inicial = $request->get('dt_inicial')??null;
         $dt_fim = $request->get('dt_fim')??null;
+        $tipos = Tipo::class;
+        $centrosDeCusto = CentroCusto::class;
         //dd($search);
 
 
         $lancamentos = Lancamento::where('id_user',Auth::user()->id)
 
-        ->where(function ($query) use($search,$dt_inicial,$dt_fim){
+        ->where(function ($query) use($search,$dt_inicial,$dt_fim,$search_centroCusto,$search_tipo){
 
+
+
+            if($search_tipo){
+
+                $query->where('id_tipo','=',$search_tipo);
+            }
             if($search){
               $query->where('descricao','like',"%$search%");
 
+
+
             }
+            if ($search_centroCusto){
+            $query->where('id_centro_custo','=',$search_centroCusto);
+
+          }
+
            if ($dt_inicial) {
             $query->where('vencimento','>=',$dt_inicial);
 
@@ -51,7 +68,7 @@ class LancamentoController extends Controller
             ->paginate(10);
 
         return view('lancamento.index')
-            ->with(compact('lancamentos'));
+            ->with(compact('lancamentos','tipos','centrosDeCusto'));
     }
 
     /**
